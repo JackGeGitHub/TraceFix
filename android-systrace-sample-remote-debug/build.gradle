@@ -17,18 +17,37 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    signingConfigs {
+        release_config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file("${rootProject.projectDir}/signkeystore/customs_as_key.keystore")
+            storePassword 'android'
         }
     }
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release_config
+        }
+        release {
+            signingConfig signingConfigs.release_config
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
 buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()//key point
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url = uri("https://jitpack.io") }
     }
 
     dependencies {

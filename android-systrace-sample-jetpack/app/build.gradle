@@ -11,11 +11,24 @@ android {
         versionName "2.2.6"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release_config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file("${rootProject.projectDir}/signkeystore/customs_as_key.keystore")
+            storePassword 'android'
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.release_config
+        }
         release {
+            signingConfig signingConfigs.release_config
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -30,6 +43,11 @@ android {
     }
 
     repositories {
+        gradlePluginPortal()//key point
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url = uri("https://jitpack.io") }
         flatDir {
             dirs 'libs'
         }

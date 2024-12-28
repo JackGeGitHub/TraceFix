@@ -8,6 +8,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()//key point
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url = uri("https://jitpack.io") }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
@@ -21,6 +26,11 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()//key point
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/google' }
+        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
